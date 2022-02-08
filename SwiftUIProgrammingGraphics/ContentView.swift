@@ -17,12 +17,12 @@ struct ContentView: View {
             if showSmile {
                 SmileView()
                     .frame(width: 250, height: 250)
-                    .transition(showSmile ? .slide: .leadingSlide)
+                    .transition(.topSlide)
             }
             Spacer()
             
             Button(action: buttonAction) {
-                Text(showSmile ? "Hide Smile" : "Smile")
+                Text(showSmile ? "Not Smile" : "Smile")
             }
         }
     }
@@ -35,10 +35,10 @@ struct ContentView: View {
 }
 
 extension AnyTransition {
-    static var leadingSlide: AnyTransition {
-        let insertion = AnyTransition.move(edge: .leading)
-            .combined(with: .scale)
-        let removal = AnyTransition.scale
+    static var topSlide: AnyTransition {
+        let insertion = AnyTransition.move(edge: .top)
+            .combined(with: .opacity)
+        let removal = AnyTransition.move(edge: .bottom)
             .combined(with: .opacity)
         return .asymmetric(insertion: insertion, removal: removal)
     }
